@@ -18,6 +18,7 @@ The logic is simple:
 - Every face in the image would have a bbox
 - For the 'n' faces in the image we would have 'n' bboxes
 - Each bbox is plotted separately on an new image channel. Let's call this 'label_img'
+- The 'label_img' will have 'n' channels (which is same as the number of bboxes) {This step ensured to take care of overlapping bboxes}
 - The augmentations are applied to the 'label_img' and the bbox coordinates from the resulting 'label_img' after augmentation are recovered.
 
 ***The code has been written using TensorFlow ops so that it could be seamlessly integrated with tf.data pipeline.***

@@ -33,6 +33,26 @@ The results would look like this:
 
 ![4.png](4.png)
 
+## How to use:
+```
+''' Augment image+label_img 
+Whatever augmentation you want to apply to your image, apply them to label_imag as well
+The retrieve_coords() function will take care of the mapping
+For example I want to resize the image to (640,640) so I apply the same resizing function to the label_img as well '''
+
+label_img = tf.image.resize(tf.transpose(label_img, [1,2,0]), [640,640])
+image = tf.image.resize(image, [640,640])
+```
+
+```
+''' Here we recover the bounding boxes from the label_img
+The labels returned are the shifted/altered bbox coordinates'''
+labels = tf.map_fn(lambda x:retrieve_coords(x[0], x[1], x[2]), (label_img, range, coords))[-1]
+```
+
+Whatever spatial augmentation you want to apply {Resizing, Flip left/right, Scaling, Translating, Rotation, Shearing, etc.} goes in to the "transform()" function. Make sure it takes 2 inputs (image, label_img)
+
+
 ## Dataset:
 
 ---
